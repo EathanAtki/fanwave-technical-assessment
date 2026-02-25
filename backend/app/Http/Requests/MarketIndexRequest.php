@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 final class MarketIndexRequest extends FormRequest
 {
@@ -27,6 +28,6 @@ final class MarketIndexRequest extends FormRequest
     {
         $query = $this->string('q')->trim()->value();
 
-        return $query === '' ? null : mb_strtolower($query);
+        return $query === '' ? null : Str::lower($query);
     }
 }
