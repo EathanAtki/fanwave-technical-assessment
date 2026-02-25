@@ -29,5 +29,5 @@ Homestead.json
 .phpactor.json
 auth.json
 
-./ai
+/ai
 agents.md
