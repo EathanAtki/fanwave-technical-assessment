@@ -126,8 +126,25 @@ docker run --rm -v "${PWD}:/var/www/html" -w /var/www/html laravelsail/php84-com
 
 Backend base URL: `http://localhost`  
 API base URL: `http://localhost/api`
+Frontend URL: `http://localhost:3000`
 
 ### Backend (Laravel Sail, macOS / Linux / WSL)
+
+First-time setup (fresh clone, no local PHP required):
+
+```bash
+cd backend
+docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
+```
+
+macOS alternative (if Composer is installed locally):
+
+```bash
+cd backend
+composer install
+```
+
+Then continue with Sail:
 
 ```bash
 cd backend
@@ -219,4 +236,3 @@ npm run test:e2e
 - Add Laravel Pint as an enforced formatting gate in CI.
 - Add PHPStan + Larastan with a baseline and fail-on-new-errors policy.
 - Add CI workflow that blocks merges on tests + lint + static analysis.
-
