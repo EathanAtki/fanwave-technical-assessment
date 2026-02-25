@@ -1,4 +1,6 @@
 import type { ApiSuccess, CoinMarketItem } from '~/types/coin';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { useApiClient } from '~/composables/useApiClient';
 
 const DEBOUNCE_MS = 300;
 

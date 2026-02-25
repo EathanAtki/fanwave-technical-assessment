@@ -6,10 +6,6 @@ Production-oriented full-stack cryptocurrency viewer built for a greenfield four
 
 ```text
 .
-+- ai/
-¦  +- subagents/
-¦     +- senior-laravel-backend.md
-¦     +- senior-frontend-engineer.md
 +- backend/              # Laravel internal API
 +- frontend/             # Nuxt 3 client app
 +- README.md
@@ -220,6 +216,3 @@ npm run test:e2e
 - Add PHPStan + Larastan with a baseline and fail-on-new-errors policy.
 - Add CI workflow that blocks merges on tests + lint + static analysis.
 
-## Notes
-
-- `ai/subagents` already includes the required backend/frontend specialist definitions.

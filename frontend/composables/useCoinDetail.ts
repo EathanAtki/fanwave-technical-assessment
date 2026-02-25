@@ -1,5 +1,8 @@
 import type { ApiSuccess, CoinDetail } from '~/types/coin';
+import type { Ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { ApiClientError } from '~/composables/useApiClient';
+import { useApiClient } from '~/composables/useApiClient';
 
 export function useCoinDetail(id: Ref<string>) {
   const api = useApiClient();
