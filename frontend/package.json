@@ -6,7 +6,7 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "test:unit": "vitest run",
+    "test:unit": "nuxi prepare && vitest run",
     "test:e2e": "playwright test",
     "typecheck": "nuxt typecheck"
   },
