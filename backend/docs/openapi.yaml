@@ -1,0 +1,167 @@
+﻿openapi: 3.0.3
+info:
+  title: Fanwave Crypto Internal API
+  version: 1.0.0
+  description: |
+    Internal API exposed by Laravel. CoinGecko is consumed only server-side.
+servers:
+  - url: http://localhost/api
+    description: Local via Sail
+paths:
+  /markets:
+    get:
+      summary: Get top cryptocurrency markets
+      description: Returns top 10 cryptocurrencies by market cap, optionally filtered by name or symbol.
+      parameters:
+        - in: query
+          name: q
+          required: false
+          schema:
+            type: string
+            maxLength: 32
+          description: Search term matched against `name` or `symbol`.
+      responses:
+        '200':
+          description: Markets response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /coins/{id}:
+    get:
+      summary: Get cryptocurrency detail
+      description: Returns detail for a single cryptocurrency.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-z0-9-]+$'
+          description: CoinGecko coin id (example `bitcoin`).
+      responses:
+        '200':
+          description: Coin detail response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoinDetailResponse'
+        '404':
+          description: Coin not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    MarketItem:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          nullable: true
+        symbol:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        image:
+          type: string
+          nullable: true
+        current_price:
+          type: number
+          nullable: true
+        market_cap:
+          type: number
+          nullable: true
+        total_volume:
+          type: number
+          nullable: true
+        price_change_percentage_24h:
+          type: number
+          nullable: true
+    CoinDetail:
+      allOf:
+        - $ref: '#/components/schemas/MarketItem'
+        - type: object
+          additionalProperties: false
+          properties:
+            short_description:
+              type: string
+              nullable: true
+            homepage_links:
+              type: array
+              items:
+                type: string
+    MarketsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          minItems: 0
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/MarketItem'
+        request_id:
+          type: string
+    CoinDetailResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/CoinDetail'
+        request_id:
+          type: string
+    ErrorObject:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          nullable: true
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+        request_id:
+          type: string
