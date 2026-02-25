@@ -50,11 +50,11 @@ describe('Coin detail page', () => {
       },
     });
 
-    expect(await screen.findByText(/Bitcoin/)).toBeInTheDocument();
-    expect(screen.getByText('Price: $100')).toBeInTheDocument();
-    expect(screen.getByText('Market cap: $1,000')).toBeInTheDocument();
-    expect(screen.getByText('Volume: $200')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'https://bitcoin.org' })).toBeInTheDocument();
-    expect(screen.queryByText('javascript:alert(1)')).not.toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /Bitcoin \(BTC\)/ })).toBeTruthy();
+    expect(screen.getByText('Price: $100')).toBeTruthy();
+    expect(screen.getByText('Market cap: $1,000')).toBeTruthy();
+    expect(screen.getByText('Volume: $200')).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'https://bitcoin.org' })).toBeTruthy();
+    expect(screen.queryByText('javascript:alert(1)')).toBeNull();
   });
 });

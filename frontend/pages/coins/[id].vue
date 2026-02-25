@@ -32,6 +32,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useCoinDetail } from '~/composables/useCoinDetail';
+
 const route = useRoute();
 const coinId = computed(() => String(route.params.id));
 const { coin, loading, errorMessage, isNotFound, retry } = useCoinDetail(coinId);

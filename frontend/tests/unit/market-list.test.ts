@@ -21,8 +21,8 @@ describe('MarketList', () => {
       global: { stubs: { NuxtLink: { template: '<a><slot /></a>' } } },
     });
 
-    expect(screen.getByText(/Bitcoin/)).toBeInTheDocument();
-    expect(screen.getByText('$1')).toBeInTheDocument();
+    expect(screen.getByText(/Bitcoin/)).toBeTruthy();
+    expect(screen.getByText('$1')).toBeTruthy();
   });
 
   it('renders loading skeleton', () => {
@@ -31,7 +31,7 @@ describe('MarketList', () => {
       global: { stubs: { NuxtLink: { template: '<a><slot /></a>' } } },
     });
 
-    expect(screen.getByRole('status', { name: 'Loading markets' })).toBeInTheDocument();
+    expect(screen.getByRole('status', { name: 'Loading markets' })).toBeTruthy();
   });
 
   it('shows error banner and emits retry', async () => {
