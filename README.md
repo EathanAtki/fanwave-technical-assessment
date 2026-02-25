@@ -116,6 +116,7 @@ Prerequisites:
 ```powershell
 cd backend
 Copy-Item .env.example .env -ErrorAction SilentlyContinue
+docker run --rm -v "${PWD}:/var/www/html" -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
 .\vendor\bin\sail.bat up -d
 .\vendor\bin\sail.bat artisan key:generate
 .\vendor\bin\sail.bat artisan migrate
@@ -144,6 +145,7 @@ cp .env.example .env
 cd frontend
 npm install
 $env:NUXT_PUBLIC_API_BASE_URL="http://localhost"
+# runs Nuxt prepare automatically; no need to start dev first
 npm run test:unit
 npm run dev
 ```
@@ -154,6 +156,7 @@ npm run dev
 cd frontend
 npm install
 export NUXT_PUBLIC_API_BASE_URL="http://localhost"
+# runs Nuxt prepare automatically; no need to start dev first
 npm run test:unit
 npm run dev
 ```
@@ -161,6 +164,8 @@ npm run dev
 Convention: `NUXT_PUBLIC_API_BASE_URL` should be host-only (no `/api`). Frontend requests use `/api/...` paths.
 
 ### E2E
+
+Playwright starts the Nuxt dev server automatically via `playwright.config.ts`.
 
 ```bash
 cd frontend
