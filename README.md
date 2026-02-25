@@ -9,7 +9,6 @@ Production-oriented full-stack cryptocurrency viewer built for a greenfield four
 +- backend/              # Laravel internal API
 +- frontend/             # Nuxt 3 client app
 +- README.md
-+- COVERING_LETTER.md
 ```
 
 ## Architecture
