@@ -134,7 +134,7 @@ First-time setup (fresh clone, no local PHP required):
 
 ```bash
 cd backend
-docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
+docker run --rm -v "${PWD}:/var/www/html" -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
 ```
 
 macOS alternative (if Composer is installed locally):
